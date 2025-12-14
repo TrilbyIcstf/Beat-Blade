@@ -43,4 +43,11 @@ public class AimIndicator : MonoBehaviour
 
         spriteObject.transform.rotation = Quaternion.Euler(0f, 0f, angleDegrees);
     }
+
+    public float GetAngle()
+    {
+        float rads = Mathf.Atan2(aimDirection.y, aimDirection.x);
+        float degs = rads * Mathf.Rad2Deg;
+        return degs - 90;
+    }
 }
