@@ -6,3 +6,16 @@ public enum AttackColor
     BLUE,
     BLACK
 }
+
+public enum ArrowMovementType { 
+    STATIC,
+    TRACKING,
+    HORIZONTAL,
+    VERTICAL
+}
+
+public enum ArrowSpawnMethods
+{
+    FADE,
+    MOVINGFADE
+}

@@ -6,7 +6,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private float ParryWindowTime = 0.15f;
     [SerializeField]
-    private float ParryCooldownTime = 0.75f;
+    private float ParryCooldownTime = 0.5f;
+    [SerializeField]
+    private float ParryForgivenessTime = 0.1f;
 
     [SerializeField]
     private GameObject AttackLine;
@@ -17,6 +19,8 @@ public class PlayerAttack : MonoBehaviour
 
     private float parryWindow = 0f;
     private float parryCooldown = 0f;
+    private float parryForgiveness = 0f;
+    private AttackColor storedColor;
 
     private AimIndicator aim;
 
@@ -38,8 +42,22 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    public void OnParryBlue(InputValue value)
+    {
+        if (parryCooldown <= 0)
+        {
+            parryColor = AttackColor.BLUE;
+            sr.color = Color.blue;
+
+            parryWindow = ParryWindowTime;
+            parryCooldown = ParryCooldownTime;
+        }
+    }
+
     private void Update()
     {
+        CheckParry();
+
         if (parryWindow > 0)
         {
             parryWindow -= Time.deltaTime;
@@ -59,21 +77,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.tag == "Attack Line")
         {
+            parryForgiveness = ParryForgivenessTime;
             AttackLine al = collision.GetComponent<AttackLine>();
-
-            if (parryWindow > 0 && parryColor == al.AttackColor)
-            {
-                Debug.Log("Parry Success!!");
-                Quaternion rotation = Quaternion.Euler(0, 0, aim.GetAngle());
-                GameObject tempLine = Instantiate(AttackLine, gameObject.transform.position, rotation);
-
-                ParryOff();
-                parryCooldown = 0f;
-            } 
-            else
-            {
-                Debug.Log("Parry Fail!!");
-            }
+            storedColor = al.AttackColor;
         }
     }
 
@@ -81,5 +87,48 @@ public class PlayerAttack : MonoBehaviour
     {
         parryWindow = 0f;
         sr.color = Color.white;
+    }
+
+    private void CheckParry()
+    {
+        if (parryForgiveness > 0)
+        {
+            parryForgiveness -= Time.deltaTime;
+
+            if (parryWindow > 0)
+            {
+                parryForgiveness = 0;
+                if (parryColor == storedColor)
+                {
+                    ParrySuccess();
+                }
+                else
+                {
+                    ParryFail();
+                }
+            }
+            else if (parryForgiveness <= 0)
+            {
+                ParryFail();
+            }
+        }
+    }
+
+    private void ParrySuccess()
+    {
+        Debug.Log("Parry Success!!");
+        Quaternion rotation = Quaternion.Euler(0, 0, aim.GetAngle());
+        GameObject tempLine = Instantiate(AttackLine, gameObject.transform.position, rotation);
+
+        ParryOff();
+        parryCooldown = 0f;
+    }
+
+    private void ParryFail()
+    {
+        Debug.Log("Parry Failure!!");
+
+        ParryOff();
+        parryCooldown = 0f;
     }
 }

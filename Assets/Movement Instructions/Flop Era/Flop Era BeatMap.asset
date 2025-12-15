@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4b28174d350574181854520cbbb1f4, type: 3}
+  m_Name: Flop Era BeatMap
+  m_EditorClassIdentifier: Assembly-CSharp::BeatMap
+  arrowMap:
+  - {fileID: 11400000, guid: a0b0c0bb206ed35458d0e5596edc484f, type: 2}
+  - {fileID: 11400000, guid: 7f7c03edd2647404e9e1c8d38e8e8fca, type: 2}
+  - {fileID: 11400000, guid: 245fdf1b813118e42aa2dec2a52d72dd, type: 2}
+  - {fileID: 11400000, guid: aab70b3fbd39d7d4a9f2dae48fc0251d, type: 2}
