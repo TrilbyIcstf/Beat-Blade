@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArrowMovementStatic
   noteTime: 6.9
   chargeTime: 0.5
-  spawnPoint: {x: -7.42, y: 0, z: 0}
+  spawnPoint: {x: -7.42, y: 1.72, z: 0}
   spawnMethod: 0
-  arrowColor: 2
+  arrowColor: 0
   direction: {x: 1, y: 0}

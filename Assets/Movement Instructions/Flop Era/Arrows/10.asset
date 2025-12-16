@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a34c4d62f1ad6b047b10ee936907a042, type: 3}
-  m_Name: 3
+  m_Name: 10
   m_EditorClassIdentifier: Assembly-CSharp::ArrowMovementStatic
-  noteTime: 6.5
-  chargeTime: 0.5
-  spawnPoint: {x: 7.24, y: -1.72, z: 0}
+  noteTime: 9.85
+  chargeTime: 1.25
+  spawnPoint: {x: 3.37, y: 3.37, z: 0}
   spawnMethod: 0
   arrowColor: 0
-  direction: {x: -1, y: 0}
+  direction: {x: -1, y: -1}

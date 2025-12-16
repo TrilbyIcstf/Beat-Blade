@@ -16,8 +16,13 @@ public class PlayerMovement : MonoBehaviour
     private float DashDeceleration = 50f;
     [SerializeField]
     private float DashCooldownTime = 0.75f;
+    [SerializeField]
+    private float DashIFrames = 0.3f;
+    [SerializeField]
+    private float DamageIFrames = 1f;
 
     private Rigidbody2D rb;
+    private CircleCollider2D cc;
     private Vector2 input;
     private Vector2 currentVelocity;
     private float currentSpeed = 0f;
@@ -26,9 +31,16 @@ public class PlayerMovement : MonoBehaviour
     private bool dashing = false;
     private float dashCooldown = 0;
 
+    private float iFrames = 0;
+    public float IFrames { get { return iFrames; } }
+
+    private PlayerAttack attack;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        cc = GetComponent<CircleCollider2D>();
+        attack = GetComponent<PlayerAttack>();
     }
 
     public void OnMove(InputValue value)
@@ -43,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
             dashDirection = input;
             dashing = true;
             currentSpeed = DashSpeed;
+            iFrames = DashIFrames;
         }
     }
 
@@ -74,6 +87,16 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = Mathf.Max(0, currentSpeed - (Deceleration * Time.deltaTime));
             currentVelocity = Vector2.zero;
         }
+
+        if (iFrames > 0)
+        {
+            iFrames -= Time.deltaTime;
+
+            if (iFrames <= 0)
+            {
+                attack.CheckCollision();
+            }
+        }
     }
 
     void FixedUpdate()
@@ -84,5 +107,10 @@ public class PlayerMovement : MonoBehaviour
     private bool HasMovementInput()
     {
         return input.magnitude > 0.1f;
+    }
+
+    public void TakeDamage()
+    {
+        iFrames = DamageIFrames;
     }
 }

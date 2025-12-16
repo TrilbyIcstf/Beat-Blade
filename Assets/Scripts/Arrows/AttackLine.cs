@@ -8,7 +8,22 @@ public class AttackLine : MonoBehaviour
     public AttackColor AttackColor
     {
         get { return attackColor; }
-        set { attackColor = value; }
+        set { 
+            attackColor = value;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            switch (attackColor)
+            {
+                case AttackColor.BLACK:
+                    sr.color = Color.black;
+                    break;
+                case AttackColor.RED:
+                    sr.color = Color.red;
+                    break;
+                case AttackColor.BLUE:
+                    sr.color = Color.blue;
+                    break;
+            }
+        }
     }
 
     private void Awake()

@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private GameObject AttackLine;
 
     private SpriteRenderer sr;
+    private CircleCollider2D cc;
 
     private AttackColor parryColor;
 
@@ -21,13 +22,17 @@ public class PlayerAttack : MonoBehaviour
     private float parryCooldown = 0f;
     private float parryForgiveness = 0f;
     private AttackColor storedColor;
+    private Collider2D storedCollider;
 
     private AimIndicator aim;
+    private PlayerMovement move;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        cc = GetComponent<CircleCollider2D>();
         aim = GetComponent<AimIndicator>();
+        move = GetComponent<PlayerMovement>();
     }
 
     public void OnParryRed(InputValue value)
@@ -75,11 +80,27 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Collision(collision);
+    }
+
+    public void CheckCollision()
+    {
+        Collider2D[] overlap = Physics2D.OverlapAreaAll(cc.bounds.min, cc.bounds.max);
+
+        foreach (Collider2D collision in overlap)
+        {
+            Collision(collision);
+        }
+    }
+
+    private void Collision(Collider2D collision)
+    {
         if (collision.tag == "Attack Line")
         {
             parryForgiveness = ParryForgivenessTime;
             AttackLine al = collision.GetComponent<AttackLine>();
             storedColor = al.AttackColor;
+            storedCollider = collision;
         }
     }
 
@@ -116,19 +137,31 @@ public class PlayerAttack : MonoBehaviour
 
     private void ParrySuccess()
     {
-        Debug.Log("Parry Success!!");
+        //Debug.Log("Parry Success!!");
         Quaternion rotation = Quaternion.Euler(0, 0, aim.GetAngle());
         GameObject tempLine = Instantiate(AttackLine, gameObject.transform.position, rotation);
 
-        ParryOff();
-        parryCooldown = 0f;
+        PostParry();
     }
 
     private void ParryFail()
     {
-        Debug.Log("Parry Failure!!");
+        if (move.IFrames <= 0)
+        {
+            //Debug.Log("Parry Failure!!");
+            move.TakeDamage();
 
-        ParryOff();
+            PostParry();
+        }
+    }
+
+    private void PostParry()
+    {
+        //ParryOff();
         parryCooldown = 0f;
+        if (storedCollider != null)
+        {
+            storedCollider.enabled = false;
+        }
     }
 }

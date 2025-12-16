@@ -17,7 +17,7 @@ public class MusicTimeTracker : MonoBehaviour
     private void Update()
     {
         timestamp = song.time;
-        Debug.Log(timestamp);
+        //Debug.Log(timestamp);
         spawner.UpdateBeat(timestamp);
 
         if (Input.GetKeyDown(KeyCode.Comma))
@@ -38,6 +38,11 @@ public class MusicTimeTracker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
             song.pitch += 0.2f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            Debug.Log(timestamp);
         }
     }
 }
