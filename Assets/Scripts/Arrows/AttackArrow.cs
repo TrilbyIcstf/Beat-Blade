@@ -19,6 +19,8 @@ public class AttackArrow : MonoBehaviour
 
     [SerializeField]
     private Image chargeImage;
+    [SerializeField]
+    private SpriteRenderer flashSprite;
 
     private GameObject player;
 
@@ -43,6 +45,11 @@ public class AttackArrow : MonoBehaviour
         }
 
         chargeProgress += Time.deltaTime / chargeTime;
+
+        if (chargeProgress >= 0.9f)
+        {
+            flashSprite.enabled = true;
+        }
 
         if (chargeProgress >= 1)
         {
