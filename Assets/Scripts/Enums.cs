@@ -7,6 +7,12 @@ public enum AttackColor
     BLACK
 }
 
+public enum NoteType
+{
+    ARROW,
+    BULLET
+}
+
 public enum ArrowMovementType { 
     STATIC,
     TRACKING,

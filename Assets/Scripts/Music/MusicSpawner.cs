@@ -11,9 +11,17 @@ public class MusicSpawner : MonoBehaviour
 
     private List<ArrowMovementInstructions> arrowMap;
 
+    private MusicTimeTracker music;
+
     private void Awake()
     {
         arrowMap = new List<ArrowMovementInstructions>(beatMap.ArrowMap);
+        music = GetComponent<MusicTimeTracker>();
+    }
+
+    private void Update()
+    {
+        UpdateBeat(music.Timestamp);
     }
 
     public void UpdateBeat(float time)

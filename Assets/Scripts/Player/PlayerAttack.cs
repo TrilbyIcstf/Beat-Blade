@@ -21,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private float parryWindow = 0f;
     private float parryCooldown = 0f;
     private float parryForgiveness = 0f;
+    private float parryPenalty = 0f;
     private AttackColor storedColor;
     private Collider2D storedCollider;
 
@@ -43,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
             sr.color = Color.red;
 
             parryWindow = ParryWindowTime;
-            parryCooldown = ParryCooldownTime;
+            parryCooldown = ParryCooldownTime + parryPenalty;
         }
     }
 
@@ -55,7 +56,7 @@ public class PlayerAttack : MonoBehaviour
             sr.color = Color.blue;
 
             parryWindow = ParryWindowTime;
-            parryCooldown = ParryCooldownTime;
+            parryCooldown = ParryCooldownTime + parryPenalty;
         }
     }
 
@@ -68,8 +69,13 @@ public class PlayerAttack : MonoBehaviour
             parryWindow -= Time.deltaTime;
             if (parryWindow <= 0)
             {
+                parryPenalty = Mathf.Min(1f, parryPenalty + 0.25f);
                 ParryOff();
             }
+        }
+        else if (parryPenalty > 0 && parryCooldown <= 0)
+        {
+            parryPenalty -= Time.deltaTime;
         }
 
         if (parryCooldown > 0)
@@ -137,9 +143,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void ParrySuccess()
     {
-        //Debug.Log("Parry Success!!");
         Quaternion rotation = Quaternion.Euler(0, 0, aim.GetAngle());
         GameObject tempLine = Instantiate(AttackLine, gameObject.transform.position, rotation);
+
+        parryPenalty = 0f;
 
         PostParry();
     }
@@ -148,7 +155,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (move.IFrames <= 0)
         {
-            //Debug.Log("Parry Failure!!");
             move.TakeDamage();
 
             PostParry();
@@ -157,7 +163,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void PostParry()
     {
-        //ParryOff();
         parryCooldown = 0f;
         if (storedCollider != null)
         {

@@ -1,0 +1,9 @@
+<
+BeatMapArrowStatic
+{"TimeStamp":4.599999904632568,"SpawnPoint":{"x":5.0,"y":5.0},"Color":1,"ChargeTime":0.20000000298023225,"SpawnMethod":0,"Direction":{"x":1.0,"y":0.0}}
+>
+<
+BeatMapArrowStatic
+{"TimeStamp":4.599999904632568,"SpawnPoint":{"x":5.0,"y":5.0},"Color":1,"ChargeTime":0.20000000298023225,"SpawnMethod":0,"Direction":{"x":1.0,"y":0.0}}
+>
+
