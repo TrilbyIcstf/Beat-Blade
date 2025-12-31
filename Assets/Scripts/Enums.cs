@@ -20,8 +20,17 @@ public enum ArrowMovementType {
     VERTICAL
 }
 
+public enum BulleteMovementType
+{
+    STRAIGHT,
+    TRACKING
+}
+
 public enum ArrowSpawnMethods
 {
     FADE,
-    MOVINGFADE
+    UPMOVINGFADE,
+    DOWNMOVINGFADE,
+    LEFTMOVINGFADE,
+    RIGHTMOVINGFADE
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attack Line
   - Player Line
+  - BeatMap Creator
   layers:
   - Default
   - TransparentFX
