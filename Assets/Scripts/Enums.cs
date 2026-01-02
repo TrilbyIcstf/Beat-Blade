@@ -9,6 +9,16 @@ public enum AttackColor
 
 public enum NoteType
 {
+    ARROWSTATIC,
+    ARROWTRACKING,
+    ARROWHORIZONTAL,
+    ARROWVERTICAL,
+    BULLETSTRAIGHT,
+    BULLETTRACKING
+}
+
+public enum NoteSuperType
+{
     ARROW,
     BULLET
 }

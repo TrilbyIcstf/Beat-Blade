@@ -1,10 +1,7 @@
 BeatMapArrowStatic
-{"TimeStamp":1.0239909887313843,"SpawnPoint":{"x":-1.9977666139602662,"y":3.292410373687744},"Color":2,"ChargeTime":0.5,"SpawnMethod":0,"Direction":{"x":0.9998502731323242,"y":0.017303112894296647}}
+{"TimeStamp":5.077324390411377,"SpawnPoint":{"x":-3.9840970039367677,"y":3.1919641494750978},"Color":0,"ChargeTime":1.25,"SpawnMethod":0,"Direction":{"x":0.999977707862854,"y":0.006679036188870668}}
 |
-BeatMapArrowStatic
-{"TimeStamp":2.0239908695220949,"SpawnPoint":{"x":0.0558047853410244,"y":3.024553060531616},"Color":2,"ChargeTime":0.5,"SpawnMethod":0,"Direction":{"x":0.999977707862854,"y":0.006679036188870668}}
-|
-BeatMapArrowStatic
-{"TimeStamp":2.0239908695220949,"SpawnPoint":{"x":2.433037281036377,"y":2.1763391494750978},"Color":2,"ChargeTime":0.5,"SpawnMethod":0,"Direction":{"x":0.9999898076057434,"y":-0.004517229739576578}}
+BeatMapArrowTracking
+{"TimeStamp":10.901314735412598,"SpawnPoint":{"x":-1.227592945098877,"y":-3.9732143878936769},"Color":1,"ChargeTime":0.800000011920929,"SpawnMethod":0}
 |
 

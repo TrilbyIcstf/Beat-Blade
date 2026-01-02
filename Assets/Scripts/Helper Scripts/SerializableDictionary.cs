@@ -45,3 +45,5 @@ public class SerializableKeyValuePair<TKey, TValue>
 
 [Serializable]
 public class AttackColorSpriteDictionary : SerializableDictionary<AttackColor, Sprite> { }
+[Serializable]
+public class BeatMapCreatorNoteTypeDictionary : SerializableDictionary<NoteType, BeatMapCreatorNoteType> { }
