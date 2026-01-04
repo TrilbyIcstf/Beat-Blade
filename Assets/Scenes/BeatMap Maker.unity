@@ -1109,9 +1109,10 @@ MonoBehaviour:
     - Key: 1
       Value: {fileID: 11400000, guid: 3228db8cc3fd5084d98b4741665c070a, type: 2}
     - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: c808ca373a706f1439cf7855df86d0e2, type: 2}
   canvas: {fileID: 1049917055}
   buttonPrefab: {fileID: 6408582172074472553, guid: 1aabd644c2ac6134ab7971851d49061a, type: 3}
+  aimObject: {fileID: 7660050397274717562, guid: 3855c1522a386a24b971e8c2282e3f46, type: 3}
 --- !u!1 &2039533186
 GameObject:
   m_ObjectHideFlags: 0

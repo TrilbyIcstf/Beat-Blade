@@ -4,6 +4,14 @@ public class NoteButton : MonoBehaviour
 {
     public NoteType noteType;
 
+    float timer = 0;
+    Vector2 basePos;
+
+    private void Awake()
+    {
+        basePos = transform.position;
+    }
+
     private void OnMouseDown()
     {
         GameObject creatorObject = GameObject.FindGameObjectWithTag("BeatMap Creator");
@@ -20,6 +28,12 @@ public class NoteButton : MonoBehaviour
             case NoteType.ARROWTRACKING:
                 Vector3 rotate = new Vector3(0f, 0f, 6f);
                 gameObject.transform.Rotate(rotate);
+                break;
+            case NoteType.ARROWHORIZONTAL:
+                timer += Time.deltaTime * 2;
+                Vector2 pos = basePos;
+                pos.x += Mathf.Sin(timer) / 4;
+                transform.position = pos;
                 break;
             default:
                 break;

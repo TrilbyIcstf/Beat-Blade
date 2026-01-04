@@ -19,6 +19,8 @@ public class AttackArrow : MonoBehaviour
     private float chargeTime = 1f;
 
     [SerializeField]
+    private GameObject spriteObject;
+    [SerializeField]
     private Image chargeImage;
     [SerializeField]
     private SpriteRenderer flashSprite;
@@ -31,7 +33,7 @@ public class AttackArrow : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        sr = GetComponent<SpriteRenderer>();
+        sr = spriteObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -42,6 +44,12 @@ public class AttackArrow : MonoBehaviour
                 break;
             case ArrowMovementType.TRACKING:
                 Tracking();
+                break;
+            case ArrowMovementType.HORIZONTAL:
+                Horizontal();
+                break;
+            case ArrowMovementType.VERTICAL:
+                Vertical();
                 break;
             default:
                 break;
@@ -71,6 +79,20 @@ public class AttackArrow : MonoBehaviour
         Vector3 toPlayer = player.transform.position - transform.position;
 
         RotateTowards(toPlayer);
+    }
+
+    private void Horizontal()
+    {
+        if (chargeProgress >= 0.9f) { return; }
+        Vector2 playerHorizontal = new Vector2(player.transform.position.x, transform.position.y);
+        transform.position = playerHorizontal;
+    }
+
+    private void Vertical()
+    {
+        if (chargeProgress >= 0.9f) { return; }
+        Vector2 playerVertical = new Vector2(transform.position.x, player.transform.position.y);
+        transform.position = playerVertical;
     }
 
     private IEnumerator FadeIn()
@@ -119,7 +141,6 @@ public class AttackArrow : MonoBehaviour
         float timer = 0f;
         float goal = 0.5f;
         float dist = 0.5f;
-        Vector3 basePos = transform.position;
 
         yield return new WaitUntil(() =>
         {
@@ -129,7 +150,7 @@ public class AttackArrow : MonoBehaviour
 
             float tempDist = dist * (1 - (timer / goal));
             Vector3 displacement = tempDist * -moveDir.normalized;
-            transform.position = basePos + displacement;
+            spriteObject.transform.position = transform.position + displacement;
 
             return timer >= goal;
         });
@@ -148,6 +169,9 @@ public class AttackArrow : MonoBehaviour
                 SetInstructions(a);
                 break;
             case BeatMapArrowTracking a:
+                SetInstructions(a);
+                break;
+            case BeatMapArrowHorizontal a:
                 SetInstructions(a);
                 break;
             default:
@@ -186,6 +210,12 @@ public class AttackArrow : MonoBehaviour
     {
         movementType = ArrowMovementType.TRACKING;
         Tracking();
+    }
+
+    private void SetInstructions(BeatMapArrowHorizontal arrow)
+    {
+        movementType = ArrowMovementType.HORIZONTAL;
+        RotateTowards(arrow.Direction);
     }
 
     private void RotateTowards(Vector3 vector)
