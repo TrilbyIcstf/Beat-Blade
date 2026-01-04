@@ -36,11 +36,19 @@ public enum BulleteMovementType
     TRACKING
 }
 
-public enum ArrowSpawnMethods
+public enum ArrowSpawnMethod
 {
     FADE,
     UPMOVINGFADE,
     DOWNMOVINGFADE,
     LEFTMOVINGFADE,
     RIGHTMOVINGFADE
+}
+
+public enum Direction
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
 }

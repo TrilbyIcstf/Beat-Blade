@@ -13,7 +13,7 @@ public class BeatMapMakerTempArrowStatic : MonoBehaviour
 
             Vector2 direction = mousePos - transform.position;
 
-            float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) + 90f;
+            float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
             angle = angle / 15;
             angle = Mathf.Round(angle);
             angle = angle * 15;

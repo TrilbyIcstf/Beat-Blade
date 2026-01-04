@@ -9,14 +9,14 @@ public class MusicSpawner : MonoBehaviour
     [SerializeField]
     private BeatMap beatMap;
 
-    private List<ArrowMovementInstructions> arrowMap;
+    private List<BeatMapNote> noteMap;
 
     private MusicTimeTracker music;
 
     private void Awake()
     {
-        arrowMap = new List<ArrowMovementInstructions>(beatMap.ArrowMap);
         music = GetComponent<MusicTimeTracker>();
+        noteMap = BeatMapTranslator.FromFileText(music.SongName());
     }
 
     private void Update()
@@ -26,13 +26,21 @@ public class MusicSpawner : MonoBehaviour
 
     public void UpdateBeat(float time)
     {
-        while(arrowMap.Count > 0 && arrowMap[0].SpawnTime <= time)
+        while(noteMap.Count > 0 && noteMap[0].SpawnTime() <= time)
         {
-            ArrowMovementInstructions arrow = arrowMap[0];
-            arrowMap.RemoveAt(0);
+            BeatMapNote note = noteMap[0];
+            noteMap.RemoveAt(0);
 
-            GameObject tempArrow = Instantiate(Arrow, arrow.SpawnPoint, Quaternion.identity);
-            tempArrow.GetComponent<AttackArrow>().SetInstructions(arrow);
+            if (note is BeatMapArrow a) 
+            {
+                SpawnArrow(a);
+            }
         }
+    }
+
+    private void SpawnArrow(BeatMapArrow arrow)
+    {
+        GameObject tempArrow = Instantiate(Arrow, arrow.SpawnPoint, Quaternion.identity);
+        tempArrow.GetComponent<AttackArrow>().SetInstructions(arrow);
     }
 }

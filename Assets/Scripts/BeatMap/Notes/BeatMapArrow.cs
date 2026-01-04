@@ -4,5 +4,10 @@ using UnityEngine;
 public abstract class BeatMapArrow : BeatMapNote
 {
     public float ChargeTime;
-    public ArrowSpawnMethods SpawnMethod;
+    public ArrowSpawnMethod SpawnMethod;
+
+    public override float SpawnTime()
+    {
+        return TimeStamp - ChargeTime;
+    }
 }

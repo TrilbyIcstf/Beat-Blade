@@ -17,8 +17,8 @@ public class ArrowMovementInstructions : ScriptableObject
     public Vector2 SpawnPoint { get { return spawnPoint; } }
 
     [SerializeField]
-    protected ArrowSpawnMethods spawnMethod;
-    public ArrowSpawnMethods SpawnMethod { get { return spawnMethod; } }
+    protected ArrowSpawnMethod spawnMethod;
+    public ArrowSpawnMethod SpawnMethod { get { return spawnMethod; } }
 
     [SerializeField]
     protected AttackColor arrowColor;

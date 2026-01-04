@@ -48,6 +48,6 @@ public class AimIndicator : MonoBehaviour
     {
         float rads = Mathf.Atan2(aimDirection.y, aimDirection.x);
         float degs = rads * Mathf.Rad2Deg;
-        return degs - 90;
+        return degs;
     }
 }

@@ -10,7 +10,7 @@ public class BeatMapArrowStaticOptions : MonoBehaviour
     [SerializeField] TMP_Dropdown colorDropdown;
     [SerializeField] TMP_Dropdown enterTypeDropdown;
 
-    private float delay = 0;
+    private float delay = 1;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class BeatMapArrowStaticOptions : MonoBehaviour
 
         enterTypeDropdown.ClearOptions();
 
-        List<String> enterTypes = Enum.GetNames(typeof(ArrowSpawnMethods)).ToList();
+        List<String> enterTypes = Enum.GetNames(typeof(ArrowSpawnMethod)).ToList();
 
         enterTypeDropdown.AddOptions(enterTypes);
     }
@@ -58,8 +58,8 @@ public class BeatMapArrowStaticOptions : MonoBehaviour
         return (AttackColor)System.Enum.Parse(typeof(AttackColor), colorDropdown.options[colorDropdown.value].text);
     }
     
-    public ArrowSpawnMethods GetSpawnMethod()
+    public ArrowSpawnMethod GetSpawnMethod()
     {
-        return (ArrowSpawnMethods)System.Enum.Parse(typeof(ArrowSpawnMethods), enterTypeDropdown.options[enterTypeDropdown.value].text);
+        return (ArrowSpawnMethod)System.Enum.Parse(typeof(ArrowSpawnMethod), enterTypeDropdown.options[enterTypeDropdown.value].text);
     }
 }

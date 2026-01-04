@@ -103,8 +103,9 @@ public class BeatMapCreator : MonoBehaviour
         BeatMapArrowStaticOptions options = tempOptions.GetComponent<BeatMapArrowStaticOptions>();
         note.ChargeTime = options.GetDelay();
         note.Color = options.GetColor();
-        float angleDeg = tempNote.transform.rotation.z;
+        float angleDeg = tempNote.transform.rotation.eulerAngles.z;
         float angleRad = angleDeg * Mathf.Deg2Rad;
+        Debug.Log($"{angleDeg}, {angleRad}");
 
         Vector2 direction = new Vector2(
             Mathf.Cos(angleRad),
@@ -149,13 +150,7 @@ public class BeatMapCreator : MonoBehaviour
         BeatMapArrowTrackingOptions options = tempOptions.GetComponent<BeatMapArrowTrackingOptions>();
         note.ChargeTime = options.GetDelay();
         note.Color = options.GetColor();
-        float angleDeg = tempNote.transform.rotation.z;
-        float angleRad = angleDeg * Mathf.Deg2Rad;
 
-        Vector2 direction = new Vector2(
-            Mathf.Cos(angleRad),
-            Mathf.Sin(angleRad)
-        ).normalized;
         note.SpawnMethod = options.GetSpawnMethod();
         note.SpawnPoint = tempNote.transform.position;
         note.TimeStamp = song.Timestamp;
@@ -186,7 +181,7 @@ public class BeatMapCreator : MonoBehaviour
 
     private void SortList()
     {
-        notes.Sort((a, b) => a.TimeStamp.CompareTo(b.TimeStamp));
+        notes.Sort((a, b) => a.SpawnTime().CompareTo(b.SpawnTime()));
     }
 
     public void SaveToFile()
