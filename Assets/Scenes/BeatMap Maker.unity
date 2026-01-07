@@ -1067,6 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965186216}
   - component: {fileID: 1965186217}
+  - component: {fileID: 1965186218}
   m_Layer: 0
   m_Name: BeatMap Creator
   m_TagString: BeatMap Creator
@@ -1110,9 +1111,25 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 3228db8cc3fd5084d98b4741665c070a, type: 2}
     - Key: 2
       Value: {fileID: 11400000, guid: c808ca373a706f1439cf7855df86d0e2, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: f144a6ac39764364cb895c06c7fdd737, type: 2}
   canvas: {fileID: 1049917055}
   buttonPrefab: {fileID: 6408582172074472553, guid: 1aabd644c2ac6134ab7971851d49061a, type: 3}
   aimObject: {fileID: 7660050397274717562, guid: 3855c1522a386a24b971e8c2282e3f46, type: 3}
+--- !u!114 &1965186218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965186214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0768d75af1657564781bbe0b6b100bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeatMapCreatorNoteVisualizer
+  song: {fileID: 1356117882}
+  creator: {fileID: 1965186217}
 --- !u!1 &2039533186
 GameObject:
   m_ObjectHideFlags: 0

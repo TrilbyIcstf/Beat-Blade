@@ -30,10 +30,20 @@ public class NoteButton : MonoBehaviour
                 gameObject.transform.Rotate(rotate);
                 break;
             case NoteType.ARROWHORIZONTAL:
-                timer += Time.deltaTime * 2;
-                Vector2 pos = basePos;
-                pos.x += Mathf.Sin(timer) / 4;
-                transform.position = pos;
+                {
+                    timer += Time.deltaTime * 2;
+                    Vector2 pos = basePos;
+                    pos.x += Mathf.Sin(timer) / 4;
+                    transform.position = pos;
+                }
+                break;
+            case NoteType.ARROWVERTICAL:
+                {
+                    timer += Time.deltaTime * 2;
+                    Vector2 pos = basePos;
+                    pos.y += Mathf.Sin(timer) / 4;
+                    transform.position = pos;
+                }
                 break;
             default:
                 break;

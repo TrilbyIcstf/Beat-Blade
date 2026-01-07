@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6861515987673591505}
   - component: {fileID: 3974215677986839807}
-  - component: {fileID: 7235724151071782970}
+  - component: {fileID: 407940147101131294}
   m_Layer: 0
   m_Name: Tracking Arrow Object
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7235724151071782970
+--- !u!114 &407940147101131294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4506438823478550697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c33269c73b1a1547bf9f1c2d66efaec, type: 3}
+  m_Script: {fileID: 11500000, guid: eb781b6950314a14999cf4aafdc9de2a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeatMapMakerTempArrowTracking
+  m_EditorClassIdentifier: Assembly-CSharp::BeatMapMakerTempNote
+  type: 1

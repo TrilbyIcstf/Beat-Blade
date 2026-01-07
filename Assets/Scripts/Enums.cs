@@ -17,6 +17,26 @@ public enum NoteType
     BULLETTRACKING
 }
 
+public static class NoteTypeMethods
+{
+    public static NoteType FromScript(BeatMapNote note)
+    {
+        switch(note)
+        {
+            case BeatMapArrowStatic:
+                return NoteType.ARROWSTATIC;
+            case BeatMapArrowTracking:
+                return NoteType.ARROWTRACKING;
+            case BeatMapArrowHorizontal:
+                return NoteType.ARROWHORIZONTAL;
+            case BeatMapArrowVertical:
+                return NoteType.ARROWVERTICAL;
+        }
+
+        return NoteType.BULLETSTRAIGHT;
+    }
+}
+
 public enum NoteSuperType
 {
     ARROW,

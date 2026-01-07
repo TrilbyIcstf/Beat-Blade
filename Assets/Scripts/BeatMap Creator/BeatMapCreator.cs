@@ -47,6 +47,9 @@ public class BeatMapCreator : MonoBehaviour
                     case NoteType.ARROWHORIZONTAL:
                         HorizontalArrowClick();
                         break;
+                    case NoteType.ARROWVERTICAL:
+                        VerticalArrowClick();
+                        break;
                     default:
                         break;
                 }
@@ -94,7 +97,7 @@ public class BeatMapCreator : MonoBehaviour
                 break;
             case 2:
                 {
-                    tempNote.GetComponent<BeatMapMakerTempArrowStatic>().StopTracking();
+                    tempNote.GetComponent<BeatMapMakerTempNote>().StopTracking();
                     tempOptions = Instantiate(OptionsPrefab(NoteType.ARROWSTATIC), canvas.transform);
                     step++;
                 }
@@ -108,6 +111,9 @@ public class BeatMapCreator : MonoBehaviour
     {
         BeatMapArrowStatic note = new BeatMapArrowStatic();
         BeatMapArrowStaticOptions options = tempOptions.GetComponent<BeatMapArrowStaticOptions>();
+
+        note.Type = NoteType.ARROWSTATIC;
+
         note.ChargeTime = options.GetDelay();
         note.Color = options.GetColor();
         float angleDeg = tempNote.transform.rotation.eulerAngles.z;
@@ -155,6 +161,9 @@ public class BeatMapCreator : MonoBehaviour
     {
         BeatMapArrowTracking note = new BeatMapArrowTracking();
         BeatMapArrowTrackingOptions options = tempOptions.GetComponent<BeatMapArrowTrackingOptions>();
+
+        note.Type = NoteType.ARROWTRACKING;
+
         note.ChargeTime = options.GetDelay();
         note.Color = options.GetColor();
 
@@ -182,12 +191,6 @@ public class BeatMapCreator : MonoBehaviour
                     Vector3 pos = aimTracker.transform.position;
                     tempNote = Instantiate(TempNote(NoteType.ARROWHORIZONTAL), pos, Quaternion.identity);
                     Destroy(aimTracker);
-                    step++;
-                }
-                break;
-            case 2:
-                {
-                    tempNote.GetComponent<BeatMapMakerTempArrowStatic>().StopTracking();
                     tempOptions = Instantiate(OptionsPrefab(NoteType.ARROWHORIZONTAL), canvas.transform);
                     step++;
                 }
@@ -201,19 +204,59 @@ public class BeatMapCreator : MonoBehaviour
     {
         BeatMapArrowHorizontal note = new BeatMapArrowHorizontal();
         BeatMapArrowHorizontalOptions options = tempOptions.GetComponent<BeatMapArrowHorizontalOptions>();
+
+        note.Type = NoteType.ARROWHORIZONTAL;
+
         note.ChargeTime = options.GetDelay();
         note.Color = options.GetColor();
-        float angleDeg = tempNote.transform.rotation.eulerAngles.z;
-        float angleRad = angleDeg * Mathf.Deg2Rad;
 
-        Vector2 direction = new Vector2(
-            Mathf.Cos(angleRad),
-            Mathf.Sin(angleRad)
-        ).normalized;
-        note.Direction = direction;
         note.SpawnMethod = options.GetSpawnMethod();
-        note.SpawnPoint = tempNote.transform.position;
+        note.SpawnPoint = new Vector2(0, tempNote.transform.position.y);
         note.TimeStamp = song.Timestamp;
+        notes.Add(note);
+        SortList();
+
+        Destroy(tempNote);
+        Destroy(tempOptions);
+        EndPlacing();
+    }
+
+    private void VerticalArrowClick()
+    {
+        switch (step)
+        {
+            case 0:
+                step++;
+                aimTracker = Instantiate(aimObject);
+                break;
+            case 1:
+                {
+                    Vector3 pos = aimTracker.transform.position;
+                    tempNote = Instantiate(TempNote(NoteType.ARROWVERTICAL), pos, Quaternion.identity);
+                    Destroy(aimTracker);
+                    tempOptions = Instantiate(OptionsPrefab(NoteType.ARROWVERTICAL), canvas.transform);
+                    step++;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void VerticalArrowSave()
+    {
+        BeatMapArrowVertical note = new BeatMapArrowVertical();
+        BeatMapArrowVerticalOptions options = tempOptions.GetComponent<BeatMapArrowVerticalOptions>();
+
+        note.Type = NoteType.ARROWVERTICAL;
+
+        note.ChargeTime = options.GetDelay();
+        note.Color = options.GetColor();
+
+        note.SpawnMethod = options.GetSpawnMethod();
+        note.SpawnPoint = new Vector2(tempNote.transform.position.x, 0);
+        note.TimeStamp = song.Timestamp;
+
         notes.Add(note);
         SortList();
 
@@ -229,7 +272,7 @@ public class BeatMapCreator : MonoBehaviour
         EndPlacing();
     }
 
-    private GameObject TempNote(NoteType type)
+    public GameObject TempNote(NoteType type)
     {
         return noteTypes[type].tempNote;
     }
@@ -249,5 +292,10 @@ public class BeatMapCreator : MonoBehaviour
         string text = BeatMapTranslator.ToFileText(notes);
 
         FileWriter.WriteBeatMap(song.SongName(), text);
+    }
+
+    public List<BeatMapNote> GetNotes()
+    {
+        return notes;
     }
 }

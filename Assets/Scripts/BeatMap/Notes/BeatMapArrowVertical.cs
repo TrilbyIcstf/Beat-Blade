@@ -2,6 +2,6 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class BeatMapArrowHorizontal : BeatMapArrow
+public class BeatMapArrowVertical : BeatMapArrow
 {
 }

@@ -6,9 +6,6 @@ public class MusicSpawner : MonoBehaviour
     [SerializeField]
     private GameObject Arrow;
 
-    [SerializeField]
-    private BeatMap beatMap;
-
     private List<BeatMapNote> noteMap;
 
     private MusicTimeTracker music;

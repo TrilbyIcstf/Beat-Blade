@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa8acdaa76ca8f948abe33ceeed1f869, type: 3}
-  m_Name: ArrowHorizontal
+  m_Name: ArrowVertical
   m_EditorClassIdentifier: Assembly-CSharp::BeatMapCreatorNoteType
-  type: 2
-  optionsPrefab: {fileID: 6778870327282218885, guid: 44e3ccbe20463e54b9d26fe0ad07e501, type: 3}
-  tempNote: {fileID: 4510871438785931416, guid: 5268255d7461e0546828e6cd17595ae0, type: 3}
+  type: 3
+  optionsPrefab: {fileID: 2717531940714400050, guid: b91944f7f6b249c4497fca52bd4731ce, type: 3}
+  tempNote: {fileID: 4510871438785931416, guid: a442fd878550086419fde68790adbb53, type: 3}

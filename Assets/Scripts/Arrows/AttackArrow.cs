@@ -81,6 +81,30 @@ public class AttackArrow : MonoBehaviour
         RotateTowards(toPlayer);
     }
 
+    private void FacePlayerHorizontal()
+    {
+        if (player.transform.position.y > transform.position.y)
+        {
+            RotateTowards(Vector3.up);
+        }
+        else
+        {
+            RotateTowards(Vector3.down);
+        }
+    }
+
+    private void FacePlayerVertical()
+    {
+        if (player.transform.position.x > transform.position.x)
+        {
+            RotateTowards(Vector3.right);
+        }
+        else
+        {
+            RotateTowards(Vector3.left);
+        }
+    }
+
     private void Horizontal()
     {
         if (chargeProgress >= 0.9f) { return; }
@@ -120,7 +144,7 @@ public class AttackArrow : MonoBehaviour
 
         float rot = transform.rotation.eulerAngles.z;
 
-        switch(dir)
+        switch (dir)
         {
             case Direction.UP:
                 break;
@@ -174,6 +198,9 @@ public class AttackArrow : MonoBehaviour
             case BeatMapArrowHorizontal a:
                 SetInstructions(a);
                 break;
+            case BeatMapArrowVertical a:
+                SetInstructions(a);
+                break;
             default:
                 break;
         }
@@ -215,7 +242,13 @@ public class AttackArrow : MonoBehaviour
     private void SetInstructions(BeatMapArrowHorizontal arrow)
     {
         movementType = ArrowMovementType.HORIZONTAL;
-        RotateTowards(arrow.Direction);
+        FacePlayerHorizontal();
+    }
+
+    private void SetInstructions(BeatMapArrowVertical arrow)
+    {
+        movementType = ArrowMovementType.VERTICAL;
+        FacePlayerVertical();
     }
 
     private void RotateTowards(Vector3 vector)
