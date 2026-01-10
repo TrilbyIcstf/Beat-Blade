@@ -71,6 +71,11 @@ public class MusicTimeTracker : MonoBehaviour
         }
     }
 
+    public void SetTime(float timestamp)
+    {
+        song.time = timestamp;
+    }
+
     public string SongName()
     {
         return song.clip.name;

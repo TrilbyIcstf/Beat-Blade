@@ -8,6 +8,7 @@ TagManager:
   - Player Line
   - BeatMap Creator
   - BeatMap Options
+  - Music
   layers:
   - Default
   - TransparentFX

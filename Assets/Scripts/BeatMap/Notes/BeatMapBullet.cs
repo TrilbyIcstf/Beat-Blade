@@ -4,7 +4,9 @@ public abstract class BeatMapBullet : BeatMapNote
 {
     public float Delay;
 
-    public ArrowSpawnMethod SpawnMethod;
+    public float Speed;
+
+    public NoteSpawnMethod SpawnMethod;
 
     public override float SpawnTime()
     {

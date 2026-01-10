@@ -14,34 +14,43 @@ public class BeatMapCreatorNoteVisualizer : MonoBehaviour
     {
         if (time != song.Timestamp)
         {
-            time = song.Timestamp;
+            CheckNotes();
+        }
+    }
 
-            List<BeatMapNote> invalidNotes = new List<BeatMapNote>();
-            foreach(var note in notes)
+    public void CheckNotes()
+    {
+        time = song.Timestamp;
+
+        List<BeatMapNote> invalidNotes = new List<BeatMapNote>();
+        foreach (var note in notes)
+        {
+            if (!WithinTime(note.Key))
             {
-                if (!WithinTime(note.Key))
+                invalidNotes.Add(note.Key);
+            }
+        }
+
+        foreach (BeatMapNote note in invalidNotes)
+        {
+            Destroy(notes[note]);
+            notes.Remove(note);
+        }
+
+        foreach (BeatMapNote note in creator.GetNotes())
+        {
+            if (WithinTime(note) && !notes.ContainsKey(note))
+            {
+                GameObject tempNote = Instantiate(creator.TempNote(note.Type), note.SpawnPoint, Quaternion.identity);
+                tempNote.GetComponent<BeatMapCreatorTempNote>().StopTracking();
+                tempNote.GetComponent<BeatMapCreatorTempNoteEdit>().enabled = true;
+                tempNote.GetComponent<BeatMapCreatorTempNoteEdit>().SetID(note.ID());
+                tempNote.GetComponent<BeatMapCreatorTempNoteEdit>().SetTimestamp(note.TimeStamp);
+                if (note is BeatMapArrowStatic n)
                 {
-                    invalidNotes.Add(note.Key);
+                    tempNote.GetComponent<BeatMapCreatorTempNote>().RotateTowards(n.Direction);
                 }
-            }
-
-            foreach(BeatMapNote note in invalidNotes)
-            {
-                Destroy(notes[note]);
-                notes.Remove(note);
-            }
-
-            foreach(BeatMapNote note in creator.GetNotes())
-            {
-                if (WithinTime(note) && !notes.ContainsKey(note)) {
-                    GameObject tempNote = Instantiate(creator.TempNote(note.Type), note.SpawnPoint, Quaternion.identity);
-                    tempNote.GetComponent<BeatMapMakerTempNote>().StopTracking();
-                    if (note is BeatMapArrowStatic n)
-                    {
-                        tempNote.GetComponent<BeatMapMakerTempNote>().RotateTowards(n.Direction);
-                    }
-                    notes[note] = tempNote;
-                }
+                notes[note] = tempNote;
             }
         }
     }

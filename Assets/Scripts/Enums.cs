@@ -56,7 +56,7 @@ public enum BulleteMovementType
     TRACKING
 }
 
-public enum ArrowSpawnMethod
+public enum NoteSpawnMethod
 {
     FADE,
     UPMOVINGFADE,

@@ -22,7 +22,7 @@ public abstract class BeatMapArrowOptions : MonoBehaviour
 
         enterTypeDropdown.ClearOptions();
 
-        List<String> enterTypes = Enum.GetNames(typeof(ArrowSpawnMethod)).ToList();
+        List<String> enterTypes = Enum.GetNames(typeof(NoteSpawnMethod)).ToList();
 
         enterTypeDropdown.AddOptions(enterTypes);
     }
@@ -54,8 +54,8 @@ public abstract class BeatMapArrowOptions : MonoBehaviour
         return (AttackColor)System.Enum.Parse(typeof(AttackColor), colorDropdown.options[colorDropdown.value].text);
     }
 
-    public ArrowSpawnMethod GetSpawnMethod()
+    public NoteSpawnMethod GetSpawnMethod()
     {
-        return (ArrowSpawnMethod)System.Enum.Parse(typeof(ArrowSpawnMethod), enterTypeDropdown.options[enterTypeDropdown.value].text);
+        return (NoteSpawnMethod)System.Enum.Parse(typeof(NoteSpawnMethod), enterTypeDropdown.options[enterTypeDropdown.value].text);
     }
 }

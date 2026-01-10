@@ -207,19 +207,19 @@ public class AttackArrow : MonoBehaviour
 
         switch (arrow.SpawnMethod)
         {
-            case ArrowSpawnMethod.FADE:
+            case NoteSpawnMethod.FADE:
                 StartCoroutine(FadeIn());
                 break;
-            case ArrowSpawnMethod.DOWNMOVINGFADE:
+            case NoteSpawnMethod.DOWNMOVINGFADE:
                 StartCoroutine(MoveIn(Direction.DOWN));
                 break;
-            case ArrowSpawnMethod.UPMOVINGFADE:
+            case NoteSpawnMethod.UPMOVINGFADE:
                 StartCoroutine(MoveIn(Direction.UP));
                 break;
-            case ArrowSpawnMethod.LEFTMOVINGFADE:
+            case NoteSpawnMethod.LEFTMOVINGFADE:
                 StartCoroutine(MoveIn(Direction.LEFT));
                 break;
-            case ArrowSpawnMethod.RIGHTMOVINGFADE:
+            case NoteSpawnMethod.RIGHTMOVINGFADE:
                 StartCoroutine(MoveIn(Direction.RIGHT));
                 break;
             default:

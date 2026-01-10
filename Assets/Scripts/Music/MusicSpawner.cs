@@ -6,6 +6,9 @@ public class MusicSpawner : MonoBehaviour
     [SerializeField]
     private GameObject Arrow;
 
+    [SerializeField]
+    private GameObject Bullet;
+
     private List<BeatMapNote> noteMap;
 
     private MusicTimeTracker music;
@@ -31,6 +34,10 @@ public class MusicSpawner : MonoBehaviour
             if (note is BeatMapArrow a) 
             {
                 SpawnArrow(a);
+            } 
+            else if (note is BeatMapBullet b)
+            {
+                SpawnBullet(b);
             }
         }
     }
@@ -39,5 +46,11 @@ public class MusicSpawner : MonoBehaviour
     {
         GameObject tempArrow = Instantiate(Arrow, arrow.SpawnPoint, Quaternion.identity);
         tempArrow.GetComponent<AttackArrow>().SetInstructions(arrow);
+    }
+
+    private void SpawnBullet(BeatMapBullet bullet)
+    {
+        GameObject tempBullet = Instantiate(Bullet, bullet.SpawnPoint, Quaternion.identity);
+        //tempBullet.GetComponent<AttackArrow>().SetInstructions(bullet);
     }
 }

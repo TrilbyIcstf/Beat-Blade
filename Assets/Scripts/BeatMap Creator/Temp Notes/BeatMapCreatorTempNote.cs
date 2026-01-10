@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BeatMapMakerTempNote : MonoBehaviour
+public class BeatMapCreatorTempNote : MonoBehaviour
 {
     [SerializeField] private NoteType type;
 

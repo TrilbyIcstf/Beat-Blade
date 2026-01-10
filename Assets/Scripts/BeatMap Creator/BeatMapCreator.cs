@@ -77,6 +77,7 @@ public class BeatMapCreator : MonoBehaviour
         placingNote = false;
         step = 0;
         currentNote = null;
+        GetComponent<BeatMapCreatorNoteVisualizer>().CheckNotes();
     }
 
     private void StaticArrowClick()
@@ -97,7 +98,7 @@ public class BeatMapCreator : MonoBehaviour
                 break;
             case 2:
                 {
-                    tempNote.GetComponent<BeatMapMakerTempNote>().StopTracking();
+                    tempNote.GetComponent<BeatMapCreatorTempNote>().StopTracking();
                     tempOptions = Instantiate(OptionsPrefab(NoteType.ARROWSTATIC), canvas.transform);
                     step++;
                 }
@@ -292,6 +293,11 @@ public class BeatMapCreator : MonoBehaviour
         string text = BeatMapTranslator.ToFileText(notes);
 
         FileWriter.WriteBeatMap(song.SongName(), text);
+    }
+
+    public void RemoveNote(string ID)
+    {
+        notes.RemoveAll(n => n.ID() == ID);
     }
 
     public List<BeatMapNote> GetNotes()
