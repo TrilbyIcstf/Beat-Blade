@@ -51,6 +51,6 @@ public class MusicSpawner : MonoBehaviour
     private void SpawnBullet(BeatMapBullet bullet)
     {
         GameObject tempBullet = Instantiate(Bullet, bullet.SpawnPoint, Quaternion.identity);
-        //tempBullet.GetComponent<AttackArrow>().SetInstructions(bullet);
+        tempBullet.GetComponent<AttackBullet>().SetInstructions(bullet);
     }
 }

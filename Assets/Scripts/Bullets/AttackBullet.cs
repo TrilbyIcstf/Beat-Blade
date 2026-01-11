@@ -29,7 +29,7 @@ public class AttackBullet : MonoBehaviour
     private bool bulletActive = false;
     private float delayCounter = 0f;
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         sr = spriteObject.GetComponent<SpriteRenderer>();

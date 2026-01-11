@@ -307,6 +307,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_ActionId
+      value: 96aab570-7450-4fcb-9856-d33c0f476cb7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
+      value: 8777fcf9-205a-41a9-8e3b-1e66dbd19b75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: 5de09f77-ae41-40dd-b34c-a50df9b1e09f
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: cb208eef-7f7f-45b2-bb48-2684576e01d6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: 0978ec47-65dc-411c-ad18-aca6d7e1545c
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_ActionName
+      value: 'Combat/aim[/XInputControllerWindows/rightStick]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
+      value: 'Combat/move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: 'Combat/dash[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'Combat/parryRed[/XInputControllerWindows/rightShoulder]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776463655722174431, guid: 114985c55ed407147a3420b931b8a9e9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'Combat/parryBlue[/XInputControllerWindows/leftShoulder]'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1113,6 +1157,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: c808ca373a706f1439cf7855df86d0e2, type: 2}
     - Key: 3
       Value: {fileID: 11400000, guid: f144a6ac39764364cb895c06c7fdd737, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: dd224a8f5687bb745b68ae85437762c6, type: 2}
   canvas: {fileID: 1049917055}
   buttonPrefab: {fileID: 6408582172074472553, guid: 1aabd644c2ac6134ab7971851d49061a, type: 3}
   aimObject: {fileID: 7660050397274717562, guid: 3855c1522a386a24b971e8c2282e3f46, type: 3}

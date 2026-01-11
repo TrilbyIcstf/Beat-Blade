@@ -50,6 +50,9 @@ public class BeatMapCreator : MonoBehaviour
                     case NoteType.ARROWVERTICAL:
                         VerticalArrowClick();
                         break;
+                    case NoteType.BULLETSTRAIGHT:
+                        StraightBulletClick();
+                        break;
                     default:
                         break;
                 }
@@ -268,12 +271,59 @@ public class BeatMapCreator : MonoBehaviour
 
     private void StraightBulletClick()
     {
-
+        switch (step)
+        {
+            case 0:
+                step++;
+                aimTracker = Instantiate(aimObject);
+                break;
+            case 1:
+                {
+                    Vector3 pos = aimTracker.transform.position;
+                    tempNote = Instantiate(TempNote(NoteType.BULLETSTRAIGHT), pos, Quaternion.identity);
+                    Destroy(aimTracker);
+                    step++;
+                }
+                break;
+            case 2:
+                {
+                    tempNote.GetComponent<BeatMapCreatorTempNote>().StopTracking();
+                    tempOptions = Instantiate(OptionsPrefab(NoteType.BULLETSTRAIGHT), canvas.transform);
+                    step++;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public void StraightBulletSave()
     {
+        BeatMapBulletStraight note = new BeatMapBulletStraight();
+        BeatMapBulletStraightOptions options = tempOptions.GetComponent<BeatMapBulletStraightOptions>();
 
+        note.Type = NoteType.BULLETSTRAIGHT;
+
+        note.Delay = options.GetDelay();
+        note.Speed = options.GetSpeed();
+        note.Color = options.GetColor();
+        float angleDeg = tempNote.transform.rotation.eulerAngles.z;
+        float angleRad = angleDeg * Mathf.Deg2Rad;
+
+        Vector2 direction = new Vector2(
+            Mathf.Cos(angleRad),
+            Mathf.Sin(angleRad)
+        ).normalized;
+        note.Direction = direction;
+        note.SpawnMethod = options.GetSpawnMethod();
+        note.SpawnPoint = tempNote.transform.position;
+        note.TimeStamp = song.Timestamp;
+        notes.Add(note);
+        SortList();
+
+        Destroy(tempNote);
+        Destroy(tempOptions);
+        EndPlacing();
     }
 
     public void CancelNote()

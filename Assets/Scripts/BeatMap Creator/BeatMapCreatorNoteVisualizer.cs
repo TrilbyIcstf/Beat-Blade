@@ -50,6 +50,10 @@ public class BeatMapCreatorNoteVisualizer : MonoBehaviour
                 {
                     tempNote.GetComponent<BeatMapCreatorTempNote>().RotateTowards(n.Direction);
                 }
+                else if (note is BeatMapBulletStraight b)
+                {
+                    tempNote.GetComponent<BeatMapCreatorTempNote>().RotateTowards(b.Direction);
+                }
                 notes[note] = tempNote;
             }
         }

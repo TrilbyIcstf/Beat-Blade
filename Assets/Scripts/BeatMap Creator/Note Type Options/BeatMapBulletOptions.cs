@@ -60,6 +60,11 @@ public abstract class BeatMapBulletOptions : MonoBehaviour
         speedText.text = $"Speed: {speed.ToString()}";
     }
 
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
     public AttackColor GetColor()
     {
         return (AttackColor)System.Enum.Parse(typeof(AttackColor), colorDropdown.options[colorDropdown.value].text);

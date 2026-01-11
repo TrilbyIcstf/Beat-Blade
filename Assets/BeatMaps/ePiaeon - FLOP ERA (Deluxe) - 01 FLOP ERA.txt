@@ -1,0 +1,10 @@
+BeatMapBulletStraight
+{"Type":4,"TimeStamp":1.5999773740768433,"SpawnPoint":{"x":0.0,"y":4.0},"Color":2,"Delay":1.0,"Speed":3.0,"SpawnMethod":0,"Direction":{"x":1.1924880638503055e-8,"y":-1.0}}
+|
+BeatMapBulletStraight
+{"Type":4,"TimeStamp":1.5999773740768433,"SpawnPoint":{"x":-6.5,"y":-4.0},"Color":0,"Delay":1.0,"Speed":6.0,"SpawnMethod":0,"Direction":{"x":0.8660253882408142,"y":0.5}}
+|
+BeatMapBulletStraight
+{"Type":4,"TimeStamp":1.5999773740768433,"SpawnPoint":{"x":6.0,"y":-4.0},"Color":1,"Delay":0.5,"Speed":3.0,"SpawnMethod":1,"Direction":{"x":-0.7071067690849304,"y":0.7071067690849304}}
+|
+
