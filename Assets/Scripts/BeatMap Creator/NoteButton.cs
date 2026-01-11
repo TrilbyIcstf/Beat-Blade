@@ -26,8 +26,10 @@ public class NoteButton : MonoBehaviour
             case NoteType.ARROWSTATIC:
                 break;
             case NoteType.ARROWTRACKING:
-                Vector3 rotate = new Vector3(0f, 0f, 6f);
-                gameObject.transform.Rotate(rotate);
+                {
+                    Vector3 rotate = new Vector3(0f, 0f, 6f);
+                    gameObject.transform.Rotate(rotate);
+                }
                 break;
             case NoteType.ARROWHORIZONTAL:
                 {
@@ -43,6 +45,14 @@ public class NoteButton : MonoBehaviour
                     Vector2 pos = basePos;
                     pos.y += Mathf.Sin(timer) / 4;
                     transform.position = pos;
+                }
+                break;
+            case NoteType.BULLETSTRAIGHT:
+                break;
+            case NoteType.BULLETTRACKING:
+                {
+                    Vector3 rotate = new Vector3(0f, 0f, 6f);
+                    gameObject.transform.Rotate(rotate);
                 }
                 break;
             default:

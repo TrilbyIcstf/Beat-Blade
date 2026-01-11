@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 
-public class BeatMapBulletStraight : MonoBehaviour
+[Serializable]
+public class BeatMapBulletStraight : BeatMapBullet
 {
     public Vector2 Direction;
 }

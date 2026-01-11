@@ -29,25 +29,18 @@ public class BeatMapCreatorTempNote : MonoBehaviour
             case NoteType.ARROWVERTICAL:
                 ArrowVertical();
                 break;
+            case NoteType.BULLETSTRAIGHT:
+                BulletStraight();
+                break;
+            case NoteType.BULLETTRACKING:
+                BulletTracking();
+                break;
         }
     }
 
     private void ArrowStatic()
     {
-        if (tracking)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
-
-            Vector2 direction = mousePos - transform.position;
-
-            float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            angle = angle / 15;
-            angle = Mathf.Round(angle);
-            angle = angle * 15;
-
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        }
+        FollowMouse();
     }
 
     private void ArrowTracking()
@@ -85,6 +78,36 @@ public class BeatMapCreatorTempNote : MonoBehaviour
 
         Vector2 playerVertical = new Vector2(transform.position.x, player.transform.position.y);
         transform.position = playerVertical;
+    }
+
+    private void BulletStraight()
+    {
+        FollowMouse();
+    }
+
+    private void BulletTracking()
+    {
+        Vector3 toPlayer = player.transform.position - transform.position;
+
+        RotateTowards(toPlayer);
+    }
+
+    private void FollowMouse()
+    {
+        if (tracking)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+
+            Vector2 direction = mousePos - transform.position;
+
+            float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+            angle = angle / 15;
+            angle = Mathf.Round(angle);
+            angle = angle * 15;
+
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
     }
 
     public void StopTracking()

@@ -108,6 +108,14 @@ public class PlayerAttack : MonoBehaviour
             storedColor = al.AttackColor;
             storedCollider = collision;
         }
+
+        if (collision.tag == "Attack Bullet")
+        {
+            parryForgiveness = ParryForgivenessTime;
+            AttackBullet ab = collision.GetComponent<AttackBullet>();
+            storedColor = ab.GetColor();
+            Destroy(collision.gameObject);
+        }
     }
 
     private void ParryOff()

@@ -266,6 +266,16 @@ public class BeatMapCreator : MonoBehaviour
         EndPlacing();
     }
 
+    private void StraightBulletClick()
+    {
+
+    }
+
+    public void StraightBulletSave()
+    {
+
+    }
+
     public void CancelNote()
     {
         Destroy(tempNote);
