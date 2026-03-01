@@ -131,7 +131,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9042875831720766318}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -191,7 +191,6 @@ MonoBehaviour:
     - Key: 1
       Value: {fileID: -547497932039452759, guid: fa13d962142437846aac47b6abbd87ab, type: 3}
   color: 2
-  delayTime: 1
   speed: 1
   spriteObject: {fileID: 2056377780423207644}
   direction: {x: 0, y: 0}

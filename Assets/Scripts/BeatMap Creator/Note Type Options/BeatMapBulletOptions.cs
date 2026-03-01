@@ -11,8 +11,8 @@ public abstract class BeatMapBulletOptions : MonoBehaviour
     [SerializeField] TMP_Dropdown colorDropdown;
     [SerializeField] TMP_Dropdown enterTypeDropdown;
 
-    private float delay = 1;
-    private float speed = 3;
+    private float delay = 0.5f;
+    private float speed = 5;
 
     private void Start()
     {
@@ -21,6 +21,7 @@ public abstract class BeatMapBulletOptions : MonoBehaviour
         List<String> colors = Enum.GetNames(typeof(AttackColor)).ToList();
 
         colorDropdown.AddOptions(colors);
+        colorDropdown.value = 2;
 
         enterTypeDropdown.ClearOptions();
 

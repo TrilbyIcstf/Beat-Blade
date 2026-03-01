@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicSpawner
   Arrow: {fileID: 2831494175194211858, guid: d38e507eb7847a0418958ef75608ab56, type: 3}
-  Bullet: {fileID: 9042875831720766318, guid: 37b0df7a09f82624e8ce5e39bc0557da, type: 3}
+  Bullet: {fileID: 8057226605820496696, guid: f178bd9c0484d9f458a559c26850215b, type: 3}
 --- !u!1 &1232860759
 GameObject:
   m_ObjectHideFlags: 0

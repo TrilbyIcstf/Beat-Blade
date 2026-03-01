@@ -2,36 +2,32 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttackArrow : MonoBehaviour
+public class BulletMarker : MonoBehaviour
 {
     [Header("Static Objects")]
     [SerializeField]
-    private GameObject AttackLine;
+    private GameObject AttackBullet;
     [SerializeField]
     private AttackColorSpriteDictionary ColorSprites;
 
-    [Header("Arrow Settings")]
+    [Header("Bullet Settings")]
     [SerializeField]
     private AttackColor color = AttackColor.BLACK;
     [SerializeField]
-    private ArrowMovementType movementType = ArrowMovementType.TRACKING;
+    private BulleteMovementType movementType = BulleteMovementType.STRAIGHT; 
     [SerializeField]
     private float chargeTime = 1f;
-    private float timestamp = 0f;
 
     [SerializeField]
     private GameObject spriteObject;
     [SerializeField]
-    private SpriteRenderer outlineObject;
-    [SerializeField]
     private Image chargeImage;
-    [SerializeField]
-    private SpriteRenderer flashSprite;
 
     private GameObject player;
     private SpriteRenderer sr;
 
     private float chargeProgress = 0f;
+    private BeatMapBullet bullet;
 
     private void Awake()
     {
@@ -43,16 +39,10 @@ public class AttackArrow : MonoBehaviour
     {
         switch (movementType)
         {
-            case ArrowMovementType.STATIC:
+            case BulleteMovementType.STRAIGHT:
                 break;
-            case ArrowMovementType.TRACKING:
+            case BulleteMovementType.TRACKING:
                 Tracking();
-                break;
-            case ArrowMovementType.HORIZONTAL:
-                Horizontal();
-                break;
-            case ArrowMovementType.VERTICAL:
-                Vertical();
                 break;
             default:
                 break;
@@ -60,15 +50,10 @@ public class AttackArrow : MonoBehaviour
 
         chargeProgress += Time.deltaTime / chargeTime;
 
-        if (chargeProgress >= 0.9f)
-        {
-            flashSprite.enabled = true;
-        }
-
         if (chargeProgress >= 1)
         {
-            GameObject line = Instantiate(AttackLine, transform.position, transform.rotation);
-            line.GetComponent<AttackLine>().AttackColor = color;
+            GameObject temp = Instantiate(AttackBullet, transform.position, transform.rotation);
+            temp.GetComponent<AttackBullet>().SetInstructions(bullet);
             Destroy(gameObject);
         }
         else
@@ -82,44 +67,6 @@ public class AttackArrow : MonoBehaviour
         Vector3 toPlayer = player.transform.position - transform.position;
 
         RotateTowards(toPlayer);
-    }
-
-    private void FacePlayerHorizontal()
-    {
-        if (player.transform.position.y > transform.position.y)
-        {
-            RotateTowards(Vector3.up);
-        }
-        else
-        {
-            RotateTowards(Vector3.down);
-        }
-    }
-
-    private void FacePlayerVertical()
-    {
-        if (player.transform.position.x > transform.position.x)
-        {
-            RotateTowards(Vector3.right);
-        }
-        else
-        {
-            RotateTowards(Vector3.left);
-        }
-    }
-
-    private void Horizontal()
-    {
-        if (chargeProgress >= 0.9f) { return; }
-        Vector2 playerHorizontal = new Vector2(player.transform.position.x, transform.position.y);
-        transform.position = playerHorizontal;
-    }
-
-    private void Vertical()
-    {
-        if (chargeProgress >= 0.9f) { return; }
-        Vector2 playerVertical = new Vector2(transform.position.x, player.transform.position.y);
-        transform.position = playerVertical;
     }
 
     private IEnumerator FadeIn()
@@ -183,33 +130,25 @@ public class AttackArrow : MonoBehaviour
         });
     }
 
-    public void SetInstructions(BeatMapArrow arrow)
+    public void SetInstructions(BeatMapBullet bullet)
     {
-        color = arrow.Color;
+        color = bullet.Color;
         sr.sprite = ColorSprites[color];
+        chargeTime = bullet.Delay;
 
-        chargeTime = arrow.ChargeTime;
-        timestamp = arrow.TimeStamp;
-
-        switch (arrow)
+        this.bullet = bullet;
+        
+        switch (bullet)
         {
-            case BeatMapArrowStatic a:
-                SetInstructions(a);
+            case BeatMapBulletStraight b:
+                SetInstructions(b);
                 break;
-            case BeatMapArrowTracking a:
-                SetInstructions(a);
-                break;
-            case BeatMapArrowHorizontal a:
-                SetInstructions(a);
-                break;
-            case BeatMapArrowVertical a:
-                SetInstructions(a);
-                break;
-            default:
+            case BeatMapBulletTracking b:
+                SetInstructions(b);
                 break;
         }
 
-        switch (arrow.SpawnMethod)
+        switch (bullet.SpawnMethod)
         {
             case NoteSpawnMethod.FADE:
                 StartCoroutine(FadeIn());
@@ -231,28 +170,16 @@ public class AttackArrow : MonoBehaviour
         }
     }
 
-    private void SetInstructions(BeatMapArrowStatic arrow)
+    private void SetInstructions(BeatMapBulletStraight bullet)
     {
-        movementType = ArrowMovementType.STATIC;
-        RotateTowards(arrow.Direction);
+        Vector2 direction = bullet.Direction.normalized;
+        RotateTowards(direction);
     }
 
-    private void SetInstructions(BeatMapArrowTracking arrow)
+    private void SetInstructions(BeatMapBulletTracking bullet)
     {
-        movementType = ArrowMovementType.TRACKING;
-        Tracking();
-    }
-
-    private void SetInstructions(BeatMapArrowHorizontal arrow)
-    {
-        movementType = ArrowMovementType.HORIZONTAL;
-        FacePlayerHorizontal();
-    }
-
-    private void SetInstructions(BeatMapArrowVertical arrow)
-    {
-        movementType = ArrowMovementType.VERTICAL;
-        FacePlayerVertical();
+        Vector3 toPlayer = player.transform.position - transform.position;
+        RotateTowards(toPlayer);
     }
 
     private void RotateTowards(Vector3 vector)
@@ -264,13 +191,8 @@ public class AttackArrow : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    public void SetHighlight(bool val)
+    public AttackColor GetColor()
     {
-        outlineObject.enabled = val;
-    }
-
-    public float GetTimestamp()
-    {
-        return timestamp;
+        return color;
     }
 }

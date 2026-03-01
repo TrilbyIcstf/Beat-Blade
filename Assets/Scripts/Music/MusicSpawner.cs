@@ -10,6 +10,7 @@ public class MusicSpawner : MonoBehaviour
     private GameObject Bullet;
 
     private List<BeatMapNote> noteMap;
+    private List<GameObject> activeNotes = new List<GameObject>();
 
     private MusicTimeTracker music;
 
@@ -22,6 +23,11 @@ public class MusicSpawner : MonoBehaviour
     private void Update()
     {
         UpdateBeat(music.Timestamp);
+    }
+
+    private void LateUpdate()
+    {
+        HighlightNext(music.Timestamp);
     }
 
     public void UpdateBeat(float time)
@@ -42,15 +48,54 @@ public class MusicSpawner : MonoBehaviour
         }
     }
 
+    public void HighlightNext(float time)
+    {
+        activeNotes.RemoveAll(o => o == null);
+
+        float nextTimestamp = float.MaxValue;
+        foreach(GameObject note in activeNotes)
+        {
+            switch(note.tag)
+            {
+                case "Beat Arrow":
+                    AttackArrow arrow = note.GetComponent<AttackArrow>();
+                    if (arrow.GetTimestamp() < nextTimestamp)
+                    {
+                        nextTimestamp = arrow.GetTimestamp();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        foreach(GameObject note in activeNotes)
+        {
+            switch(note.tag)
+            {
+                case "Beat Arrow":
+                    AttackArrow arrow = note.GetComponent<AttackArrow>();
+                    arrow.SetHighlight(arrow.GetTimestamp() == nextTimestamp);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void SpawnArrow(BeatMapArrow arrow)
     {
         GameObject tempArrow = Instantiate(Arrow, arrow.SpawnPoint, Quaternion.identity);
         tempArrow.GetComponent<AttackArrow>().SetInstructions(arrow);
+
+        activeNotes.Add(tempArrow);
     }
 
     private void SpawnBullet(BeatMapBullet bullet)
     {
         GameObject tempBullet = Instantiate(Bullet, bullet.SpawnPoint, Quaternion.identity);
-        tempBullet.GetComponent<AttackBullet>().SetInstructions(bullet);
+        tempBullet.GetComponent<BulletMarker>().SetInstructions(bullet);
+
+        activeNotes.Add(tempBullet);
     }
 }
