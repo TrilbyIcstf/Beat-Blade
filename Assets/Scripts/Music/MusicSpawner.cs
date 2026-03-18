@@ -39,7 +39,9 @@ public class MusicSpawner : MonoBehaviour
 
             if (note is BeatMapArrow a) 
             {
-                SpawnArrow(a);
+                AttackArrow arrow = SpawnArrow(a);
+                float chargeRatio = (time - a.SpawnTime()) / a.ChargeTime;
+                arrow.SetChargeTo(chargeRatio);
             } 
             else if (note is BeatMapBullet b)
             {
@@ -53,6 +55,7 @@ public class MusicSpawner : MonoBehaviour
         activeNotes.RemoveAll(o => o == null);
 
         float nextTimestamp = float.MaxValue;
+        float secondNextTimestamp = float.MaxValue;
         foreach(GameObject note in activeNotes)
         {
             switch(note.tag)
@@ -61,6 +64,7 @@ public class MusicSpawner : MonoBehaviour
                     AttackArrow arrow = note.GetComponent<AttackArrow>();
                     if (arrow.GetTimestamp() < nextTimestamp)
                     {
+                        secondNextTimestamp = nextTimestamp;
                         nextTimestamp = arrow.GetTimestamp();
                     }
                     break;
@@ -75,7 +79,18 @@ public class MusicSpawner : MonoBehaviour
             {
                 case "Beat Arrow":
                     AttackArrow arrow = note.GetComponent<AttackArrow>();
-                    arrow.SetHighlight(arrow.GetTimestamp() == nextTimestamp);
+                    if (arrow.GetTimestamp() - nextTimestamp <= 0.05f)
+                    {
+                        arrow.SetHighlight(true, Color.white);
+                    }
+                    else if (arrow.GetTimestamp() - secondNextTimestamp <= 0.05f)
+                    {
+                        arrow.SetHighlight(true, Colors.BeatGrey);
+                    }
+                    else
+                    {
+                        arrow.SetHighlight(false, Color.black);
+                    }
                     break;
                 default:
                     break;
@@ -83,19 +98,23 @@ public class MusicSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnArrow(BeatMapArrow arrow)
+    private AttackArrow SpawnArrow(BeatMapArrow arrow)
     {
         GameObject tempArrow = Instantiate(Arrow, arrow.SpawnPoint, Quaternion.identity);
-        tempArrow.GetComponent<AttackArrow>().SetInstructions(arrow);
+        AttackArrow arrowScript = tempArrow.GetComponent<AttackArrow>();
+        arrowScript.SetInstructions(arrow);
 
         activeNotes.Add(tempArrow);
+        return arrowScript;
     }
 
-    private void SpawnBullet(BeatMapBullet bullet)
+    private BulletMarker SpawnBullet(BeatMapBullet bullet)
     {
         GameObject tempBullet = Instantiate(Bullet, bullet.SpawnPoint, Quaternion.identity);
-        tempBullet.GetComponent<BulletMarker>().SetInstructions(bullet);
+        BulletMarker bulletScript = tempBullet.GetComponent<BulletMarker>();
+        bulletScript.SetInstructions(bullet);
 
         activeNotes.Add(tempBullet);
+        return bulletScript;
     }
 }

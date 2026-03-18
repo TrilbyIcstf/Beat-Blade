@@ -10,6 +10,8 @@ TagManager:
   - BeatMap Options
   - Music
   - Attack Bullet
+  - Beat Arrow
+  - Beat Bullet
   layers:
   - Default
   - TransparentFX

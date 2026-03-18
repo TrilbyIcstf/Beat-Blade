@@ -60,7 +60,7 @@ public class AttackArrow : MonoBehaviour
 
         chargeProgress += Time.deltaTime / chargeTime;
 
-        if (chargeProgress >= 0.9f)
+        if (chargeTime * (1 - chargeProgress) <= 0.25f)
         {
             flashSprite.enabled = true;
         }
@@ -231,6 +231,11 @@ public class AttackArrow : MonoBehaviour
         }
     }
 
+    public void SetChargeTo(float charge)
+    {
+        chargeProgress = charge;
+    }
+
     private void SetInstructions(BeatMapArrowStatic arrow)
     {
         movementType = ArrowMovementType.STATIC;
@@ -264,13 +269,19 @@ public class AttackArrow : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    public void SetHighlight(bool val)
+    public void SetHighlight(bool val, Color color)
     {
         outlineObject.enabled = val;
+        outlineObject.color = color;
     }
 
     public float GetTimestamp()
     {
         return timestamp;
+    }
+
+    public AttackColor GetColor()
+    {
+        return color;
     }
 }

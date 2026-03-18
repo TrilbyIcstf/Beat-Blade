@@ -53,6 +53,9 @@ public class BeatMapCreator : MonoBehaviour
                     case NoteType.BULLETSTRAIGHT:
                         StraightBulletClick();
                         break;
+                    case NoteType.BULLETTRACKING:
+                        TrackingBulletClick();
+                        break;
                     default:
                         break;
                 }
@@ -315,6 +318,55 @@ public class BeatMapCreator : MonoBehaviour
             Mathf.Sin(angleRad)
         ).normalized;
         note.Direction = direction;
+        note.SpawnMethod = options.GetSpawnMethod();
+        note.SpawnPoint = tempNote.transform.position;
+        note.TimeStamp = song.Timestamp;
+        notes.Add(note);
+        SortList();
+
+        Destroy(tempNote);
+        Destroy(tempOptions);
+        EndPlacing();
+    }
+
+    public void TrackingBulletClick()
+    {
+        switch (step)
+        {
+            case 0:
+                step++;
+                aimTracker = Instantiate(aimObject);
+                break;
+            case 1:
+                {
+                    tempNote.GetComponent<BeatMapCreatorTempNote>().StopTracking();
+                    Destroy(aimTracker);
+                    tempOptions = Instantiate(OptionsPrefab(NoteType.BULLETSTRAIGHT), canvas.transform);
+                    step++;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void TrackingBulletSave()
+    {
+        BeatMapBulletTracking note = new BeatMapBulletTracking();
+        BeatMapBulletStraightOptions options = tempOptions.GetComponent<BeatMapBulletStraightOptions>();
+
+        note.Type = NoteType.BULLETSTRAIGHT;
+
+        note.Delay = options.GetDelay();
+        note.Speed = options.GetSpeed();
+        note.Color = options.GetColor();
+        float angleDeg = tempNote.transform.rotation.eulerAngles.z;
+        float angleRad = angleDeg * Mathf.Deg2Rad;
+
+        Vector2 direction = new Vector2(
+            Mathf.Cos(angleRad),
+            Mathf.Sin(angleRad)
+        ).normalized;
         note.SpawnMethod = options.GetSpawnMethod();
         note.SpawnPoint = tempNote.transform.position;
         note.TimeStamp = song.Timestamp;
